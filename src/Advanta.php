@@ -20,12 +20,49 @@ namespace Advanta;
 class Advanta
 {
     /**
+     * @var string
+     */
+    private $appKey;
+    /**
+     * @var string
+     */
+    private $appToken;
+    
+    /**
+     * Advanta constructor.
+     * Initialize and pass in your application credentials, this will be used to authenticate the application
+     * @link https://docs.advantasms.com/guides/auth/getting-credentials to get your credentials
+     * @param $appKey string your app key
+     * @param $appToken string your app token
+     */
+    public function __construct(string $appKey, string $appToken)
+    {
+        $this->appKey = $appKey;
+        $this->appToken = $appToken;
+    }
+    
+    /**
      * Returns a simple and friendly message.
      *
      * @return string
      */
-    public function getHello(): string
+    public function getHello() : string
     {
         return 'Hello, World!';
+    }
+    
+    public function airtime() : Airtime
+    {
+        return new Airtime($this);
+    }
+    
+    public function getKey() : string
+    {
+        return $this->appKey;
+    }
+    
+    public function getToken() : string
+    {
+        return $this->appToken;
     }
 }
