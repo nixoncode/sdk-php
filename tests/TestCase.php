@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Test;
+namespace Advanta\Test;
 
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 

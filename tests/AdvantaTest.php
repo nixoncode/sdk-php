@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Test;
+namespace Advanta\Test;
 
-use App\Base;
+use Advanta\Advanta;
+use Mockery;
 
-class BaseTest extends TestCase
+class AdvantaTest extends TestCase
 {
     public function testGetHello()
     {
-        $object = \Mockery::mock(Base::class);
+        $object = Mockery::mock(Advanta::class);
         $object->shouldReceive('getHello')->passthru();
 
         $this->assertSame('Hello, World!', $object->getHello());

@@ -12,11 +12,20 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace Advanta;
 
 /**
- * A general exception for nixoncode/sdk-php.
+ * Send Sms Messages, buy airtime, kplc prepaid tokens, pay kplc postpaid bills, tv and nairobi water
  */
-class BaseException extends \RuntimeException
+class Advanta
 {
+    /**
+     * Returns a simple and friendly message.
+     *
+     * @return string
+     */
+    public function getHello(): string
+    {
+        return 'Hello, World!';
+    }
 }

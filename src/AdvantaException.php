@@ -12,20 +12,13 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace Advanta;
+
+use RuntimeException;
 
 /**
- * Send Sms Messages, buy airtime, kplc prepaid tokens, pay kplc, postpaid bills, tv and nairobi water
+ * A general exception for nixoncode/sdk-php.
  */
-class Base
+class AdvantaException extends RuntimeException
 {
-    /**
-     * Returns a simple and friendly message.
-     *
-     * @return string
-     */
-    public function getHello(): string
-    {
-        return 'Hello, World!';
-    }
 }
