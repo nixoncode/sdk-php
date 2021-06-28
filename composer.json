@@ -28,7 +28,8 @@
         "wiki": "https://github.com/nixoncode/sdk-php/wiki"
     },
     "require": {
-        "php": "^7.2"
+        "php": "^7.2",
+        "guzzlehttp/guzzle": "^7.3"
     },
     "require-dev": {
         "mockery/mockery": "^1.3",
