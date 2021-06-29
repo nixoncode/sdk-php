@@ -27,7 +27,7 @@ class Airtime extends AdvClient
     /**
      * URI path to resource
      */
-    private const URI_PATH = 'airtime/buy';
+    private const URI_PATH = 'airtime/send';
     
     
     /**
