@@ -53,9 +53,12 @@ class Airtime extends AdvClient
         return $this;
     }
     
+    /**
+     *  initiates request to send airtime
+     * @return array with request result
+     */
     public function send() : array
     {
-        $this->sendRequest(self::URI_PATH, $this->recipients);
-        return $this->recipients;
+        return $this->sendRequest(self::URI_PATH, ['recipients' => $this->recipients]);
     }
 }
