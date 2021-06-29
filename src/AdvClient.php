@@ -9,9 +9,13 @@
 
 namespace Advanta;
 
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
+
+use function json_decode;
 
 abstract class AdvClient
 {
@@ -48,32 +52,46 @@ abstract class AdvClient
                 'base_uri'              => self::BASE_URI,
                 RequestOptions::TIMEOUT => 15,
                 RequestOptions::DEBUG   => false,
+                RequestOptions::HEADERS => [
+                    'Accept'       => 'application/json',
+                    'Content-Type' => 'application/json',
+                    'App-Key'      => $this->appKey,
+                    'App-Token'    => $this->appToken,
+                ],
             ]
         );
         
         $this->client = $client;
     }
     
-    /**
-     * @throws GuzzleException
-     */
+    
     protected function sendRequest(string $path, array $payload)
     {
         try {
-            $this->client->post(
+            $response = $this->client->post(
                 $path,
                 [
-                    RequestOptions::JSON    => $payload,
-                    RequestOptions::HEADERS => [
-                        'Accept'       => 'application/json',
-                        'Content-Type' => 'application/json',
-                        'App-Key'      => $this->appKey,
-                        'App-Token'    => $this->appToken,
-                    ],
+                    RequestOptions::JSON => $payload,
                 ]
             );
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (ClientException $e) {
+            $body = $e->getResponse()->getBody()->getContents();
+            $code = $e->getResponse()->getStatusCode();
+            
+            
+            $data = json_decode($body, true);
+            $message = $body;
+            
+            if ($data) {
+                $message = $data['message'];
+            }
+            
+            return ['code' => $code, 'message' => $message];
         } catch (GuzzleException $e) {
-            throw $e;
+            return ['code' => 500, 'message' => $e->getMessage()];
+        } catch (Exception $e) {
+            return ['code' => 500, 'message' => $e->getMessage()];
         }
     }
 }
